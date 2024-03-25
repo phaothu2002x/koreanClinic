@@ -31,6 +31,11 @@ const routes = [
 const SideBar = () => {
     const urlPath = usePathname();
 
+    const isActive = (path) => {
+        return urlPath.startsWith(path) || urlPath.startsWith(`${path}/`);
+    };
+
+    // console.log("check", urlPath.startsWith("/patients"));
     return (
         <div className="space-y-6 flex flex-col items-center justify-center">
             {routes.map((item, index) => (
@@ -39,12 +44,12 @@ const SideBar = () => {
                     key={item.path}
                     className={cn(
                         "w-14 h-14 flex justify-center items-center rounded-full border-2 hover:border-gray-200 hover:bg-[#7743DB]/90 group transition",
-                        urlPath === item.path ? "bg-[#7743DB]/90" : ""
+                        isActive(item.path) ? "bg-[#7743DB]/90" : ""
                     )}
                 >
                     <item.icon
                         className={cn(
-                            "w-4 h-4 text-neutral-400 group-hover:text-white  "
+                            "w-4 h-4 text-white group-hover:text-white  "
                         )}
                     />
                 </Link>
